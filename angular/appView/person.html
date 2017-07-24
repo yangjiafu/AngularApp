@@ -1,0 +1,117 @@
+﻿<script type="text/ng-template" id="editText.html">
+    <div class="modal">
+        <ion-header-bar>
+            <i class="icon ion-chevron-left" style="font-size:14px; color:gray; padding:8px 12px;" ng-click="cancleEdit()"></i>
+            <h1 class="title">{{m.editItem.key}}</h1>
+            <button class="button button-stable  button-small" ng-click="saveEdit()">保存</button>
+        </ion-header-bar>
+        <ion-content>
+            <label class="item item-input">
+                <input type="text" ng-model="m.editItem.value">
+            </label>
+        </ion-content>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editSex.html">
+    <div class="modal">
+        <ion-header-bar>
+            <i class="icon ion-chevron-left" style="font-size:14px; color:gray; padding:8px 12px;" ng-click="cancleEdit()"></i>
+            <h1 class="title">{{m.editItem.key}}</h1>
+            <button class="button button-stable  button-small" ng-click="saveEdit()">保存</button>
+        </ion-header-bar>
+        <ion-content>
+            <ion-radio ng-model="m.editItem.value" value="男">男</ion-radio>
+            <ion-radio ng-model="m.editItem.value" value="女">女</ion-radio>
+        </ion-content>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editBirthday.html">
+    <div class="modal">
+        <ion-header-bar>
+            <i class="icon ion-chevron-left" style="font-size:14px; color:gray; padding:8px 12px;" ng-click="cancleEdit()"></i>
+            <h1 class="title">{{m.editItem.key}}</h1>
+            <button class="button button-stable  button-small" ng-click="saveEdit()">保存</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <div class="item item-input">
+                    <input type="date" ng-model="m.editItem.value" />
+                </div>
+            </div>
+            
+        </ion-content>
+    </div>
+</script>
+
+<ion-view view-title="我的信息">
+    <ion-header-bar class="bar-positive" style="border-width:0;">
+        <h1 class="title" style="border-width:0;">个人中心</h1>
+    </ion-header-bar>
+    <ion-content ng-controller="PersonCtrl">
+        <div class="positive-bg">
+            <br />
+            <br />
+            <br />
+            <br />
+            <div id="personHeader" class="light-bg center">
+                <img style="border-radius:50%; margin-top:-50px; width:100px;border:3px solid #fff;box-shadow:0 3px 5px #ccc" src="imgs/personIcon.png"/>
+                <h4 class="title">{{m.sd.personInfo.name}}</h4>
+                <br />
+            </div>
+        </div>
+        <ion-list ng-if="m.level=='1'">
+            <ion-item ng-click="toSubList('基本信息')">
+                <i class="iconfont icon-icouser padding"></i>
+                基本信息
+                <i class="ion-ios-arrow-right pull-right" ></i>
+            </ion-item>
+            <ion-item class="item-divider"></ion-item>
+            <ion-item ng-click="toSubList('学习记录')">
+                <i class="iconfont icon-tiaocang- padding"></i>
+                学习记录
+                <i class="ion-ios-arrow-right pull-right"></i>
+            </ion-item>
+            <ion-item class="item-divider"></ion-item>
+            <ion-item ng-click="toSubList('求职意向')">
+                <i class="iconfont icon-qiuzhi01 padding"></i>
+                求职意向
+                <i class="ion-ios-arrow-right pull-right" ></i>
+            </ion-item>
+            <ion-item ng-click="toSubList('设置')">
+                <i class="iconfont icon-shezhi padding"></i>
+                设置
+                <i class="ion-ios-arrow-right pull-right" ></i>
+            </ion-item>
+            <!--<ion-item ng-click="toSubList('离线课程')">
+                <i class="ion-gear-b padding"></i>
+                离线课程
+                <i class="ion-ios-arrow-right pull-right"></i>
+            </ion-item>-->
+        </ion-list>
+
+        <ion-list ng-if="m.level=='2'">
+            <ion-item class="item-divider" ng-click="toParentLevel()">
+                {{group.name}}
+                <i class="icon ion-ios-undo-outline pull-right" ></i>
+            </ion-item>
+            <ion-item class="item-accordion item-icon-right"
+                      ng-repeat="item in group.items"
+                      ng-show="isGroupShown(group)" ng-click="edit(item)">
+                <div ng-if="item.type=='content'">
+                    <div class="row" ng-if="item.key=='出生年月:'"><span class="col-33">{{item.key}}</span><span class="col-66">{{item.value|customDate:'date'}}</span></div>
+                    <div class="row" ng-if="item.key!='出生年月:'"><span class="col-33">{{item.key}}</span><span class="col-66">{{item.value}}</span></div>
+                    <i class="icon ion-chevron-right" ng-if="item.key!='账号:' && item.key!='电话号码:'" style="font-size:12px; color:darkgray;"></i>
+                </div>
+                <div ng-if="item.type=='link'">
+                    <div class="row">
+                        <i ng-class="item.iconClass" style="font-size:20px; color:darkgray;"></i>
+                        <span style="margin-left:10px;">{{item.key}}</span>
+                    </div>
+                    <i class="icon ion-chevron-right" style="font-size:12px; color:darkgray;"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

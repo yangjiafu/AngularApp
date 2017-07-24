@@ -1,0 +1,15 @@
+<div class="list-group" ng-if="list.length>0">
+    <a href="javascript:void(0)" class="list-group-item" ng-repeat="item in list" ng-click="toChild(item);" ng-include="itemTemplate">
+    </a>
+</div>
+<div ng-if="list.length<1">
+    <div class="nodata">
+        <i class="glyphicon glyphicon-remove-circle"></i>
+        <div class="mt15">
+            当前分类暂无数据
+        </div>
+        <div class="mt15">
+            <a href="javascript:void(0)" ng-click="toParent()">返回</a>
+        </div>
+    </div>
+</div>

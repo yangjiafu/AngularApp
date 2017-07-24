@@ -1,0 +1,148 @@
+﻿<script type="text/ng-template" id="pageContentTemplate">
+    <div class="card" style="margin:1px 10px;">
+        <div class="item item-divider">
+            {{item.personName}}({{item.discussTime|customDate}})
+        </div>
+        <div class="item item-text-wrap">
+            <span>{{item.discussContent}}</span>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="myLearnContenteTemplate">
+    <div class="card" style="margin:1px 10px;">
+        <div class="item item-text-wrap">
+            <span>开始时间：{{item.startTime|customDate}}</span>
+            <br />
+            <span>结束时间：{{item.endTime|customDate}}</span>
+            <br />
+            <span>学习模式：{{item.learnModel}}</span>
+        </div>
+    </div>
+</script>
+<ion-view view-title="课程">
+    <ion-header-bar class="bar-positive">
+        <button class="button icon ion-chevron-left" style="font-size:16px; color:white; background-color:transparent; border:none;" ng-click="goBack()"></button>
+        <!--<i class="button icon ion-chevron-left font_min" ng-click="toMessageList()"></i>-->
+        <h1 class="title">{{courseInfo.baseInfo.title}}</h1>
+        <button class="button iconfont icon-shoucang" style="font-size:18px; color:white; background-color:transparent; border:none;" ng-click="doKeep()" ng-if="!courseInfo.baseInfo.isKeep"></button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="stable-bg">
+            <div id="courseHeader" class="positive-bg center">
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+            <div class="center" style="margin-top:-75px;">
+                <img style="border-radius:5px; border:5px solid #fff;  width:150px;" ng-src="{{courseInfo.baseInfo.img}}" />
+                <!--<span style="display:block;" class="energized">{{courseInfo.baseInfo.status}}</span>-->
+                <div id="courseInfoDiv">
+                    <span style="font-size:14px;">评分:</span>
+                    <ljx-star-tool platform="app" enable-edit="false" star-number="courseInfo.baseInfo.starRating" max-value="5" style="transform:scale(2); font-size: 16px;"></ljx-star-tool>
+
+                    <div style="display:inline; margin-left:30px;">
+                        <span style="font-size:14px;">学习人数:</span>
+                        <span class="positive">{{courseInfo.baseInfo.learnCount}}</span>
+                    </div>
+                    <div style="display:inline; margin-left:30px;">
+                        <span style="font-size:14px;">收藏人数:</span>
+                        <span class="assertive">{{courseInfo.baseInfo.keepCount}}</span>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="button-bar" style="border-top:1px solid gray">
+            <a class="button" style="font-size:14px;" ng-click="m.divContent='简介'" ng-class="{'tabActiveItem':m.divContent=='简介', 'tabItem':m.divContent!='简介'}">简介</a>
+            <a class="button" style="font-size:14px;" ng-click="m.divContent='目录'" ng-class="{'tabActiveItem':m.divContent=='目录', 'tabItem':m.divContent!='目录'}">目录</a>
+            <a class="button" style="font-size:14px;" ng-click="m.divContent='评价'" ng-class="{'tabActiveItem':m.divContent=='评价', 'tabItem':m.divContent!='评价'}">评价</a>
+        </div>
+        <div style="background-color:#FFF; min-height:500px; overflow-y:auto;">
+            <div  ng-if="m.divContent=='简介'">
+                <p class="padding myFontColor" style="white-space:pre-wrap;">{{courseInfo.baseInfo.summary}}</p>
+            </div>
+            <div ng-if="m.divContent=='目录'">
+                <div class="padding">
+                    <div ng-repeat="s1 in courseInfo.catalog.nodes" ng-if="s1.title.indexOf('图片')<0 && s1.title.indexOf('视频')<0">
+                        <h5 class="myFontColor">{{s1.title}}</h5>
+                        <h5 class="myFontColor" ng-repeat="s2 in s1.nodes" ng-if="s2.title.indexOf('图片')<0 && s2.title.indexOf('视频')<0">
+                            <span style="margin-left:25px;">{{s2.title}}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="myFontColor"  ng-if="m.divContent=='评价'">
+                <ion-item class="item center" ng-click="showDiscuss()">
+                    <span class="myFontColor">评价该课程</span>
+                    <ljx-star-tool platform="app" enable-edit="false" star-number="score" max-value="5" style="font-size:20px;"></ljx-star-tool>
+                </ion-item>
+                <ion-item class="myFontColor">评论详情（{{courseInfo.baseInfo.discussCount}}）</ion-item>
+                <ion-scroll style="max-height:400px;">
+                    <ion-item class="item item-avatar" ng-repeat="item in courseInfo.discusses">
+                        <img src="imgs/personIcon.png" />
+                        <h3>{{item.personName}} <ljx-star-tool class="pull-right" platform="app" enable-edit="false" star-number="item.score" max-value="5" style="font-size:20px;"></ljx-star-tool></h3>
+                        <h5 style="color:#e4e0e0;">{{item.discussTime|customDate:'date'}}</h5>
+                        <p class="font_min" style="color:#a1a1a1; white-space:normal;">{{item.discussContent}}</p>
+                    </ion-item>
+
+                    <ion-infinite-scroll ng-if="enableRefreshDiscuss()" on-infinite="m.refreshDiscuss()" distance="5%"></ion-infinite-scroll>
+                </ion-scroll>
+            </div>
+        </div>
+        
+        
+        
+        <!--<div class="button-bar ">
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='学习记录'">学习记录</a>
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='我要评分'">我要评分</a>
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='用户评分'">用户评论</a>
+        </div>
+        <div ng-if="divContent=='学习记录'">
+            <div class="container mt15 font_min">
+                <ljx-list-box platform="app" count="{{courseInfo.learnInfos.length}}" items="courseInfo.learnInfos" page-step="5" display-mode="分页显示" item-template="myLearnContenteTemplate"></ljx-list-box>
+                <br />
+            </div>
+        </div>
+        <div ng-if="divContent=='我要评分'">
+            <div class="container mt15 font_min">
+                <div id="courseCommentDiv">
+                    <ljx-star-tool platform="app" enable-edit="true" star-number="score" max-value="5" style="margin-left:20px;"></ljx-star-tool>
+                    <span style="margin-left:5px; font-size:14px;">{{score}}分</span>
+                </div>
+                <div class="item item-input">
+                    <textarea class="stable-bg padding" id="txtDiscuss" ng-model="discuss" style="width:95%; height:120px; resize: none; border-radius:5px;"></textarea>
+                </div>
+                <div class="padding">
+                    <button class="button button-balanced button-small pull-right" style="margin-right:30px;" ng-click="submitDiscuss()">提交评论</button>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="divContent=='用户评分'" class="font_min">
+            <ljx-list-box platform="app" count="{{courseInfo.discusses.length}}" items="courseInfo.discusses" page-step="5" display-mode="分页显示" item-template="pageContentTemplate"></ljx-list-box>
+            <br />
+        </div>-->
+    </ion-content>
+    <ion-footer-bar>
+        <div class="button-bar">
+            <button class="button button-balanced button-small " ng-click="showLearn(0)" ng-if="m.isOldLearn"
+                    ng-disabled="!courseInfo"><i
+                    class="iconfont icon-shanxiyidongduankaoqinjiankongzhishikushouye03 padding-right"></i>学习
+            </button>
+            <button class="button button-small btnLearnEasy" ng-click="showLearn(1)" ng-if="m.isLearnEasy"
+                    ng-disabled="!courseInfo"><i class="iconfont icon-jiandan padding-right"></i>学习
+            </button>
+            <button class="button button-small btnLearnNormal" ng-click="showLearn(2)" ng-if="m.isLearnNormal"
+                    ng-disabled="!courseInfo"><i class="iconfont icon-zhongdeng padding-right"></i>学习
+            </button>
+            <button class="button button-small btnLearnHard" ng-click="showLearn(3)" ng-if="m.isLearnHard"
+                    ng-disabled="!courseInfo"><i class="iconfont icon-kunnan padding-right"></i>学习
+            </button>
+            <button class="button button-small btnExam" ng-click="showExam()" ng-if="m.isExam"
+                    ng-disabled="!courseInfo"><i class="iconfont icon-newxuexibaogao padding-right"></i>测试
+            </button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+

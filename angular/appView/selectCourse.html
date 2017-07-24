@@ -1,0 +1,109 @@
+﻿<script type="text/ng-template" id="pageContentTemplate">
+    <div class="card" style="margin:1px 10px;">
+        <div class="item item-divider">
+            {{item.personName}}({{item.discussTime|customDate}})
+        </div>
+        <div class="item item-text-wrap">
+            <span>{{item.discussContent}}</span>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="myLearnContenteTemplate">
+    <div class="card" style="margin:1px 10px;">
+        <div class="item item-text-wrap">
+            <span>开始时间：&nbsp;&nbsp;{{item.startTime|customDate}}</span>
+            <br />
+            <span>结束时间：&nbsp;&nbsp;{{item.endTime|customDate}}</span>
+            <br />
+            <span>学习模式：&nbsp;&nbsp;{{item.learnModel}}</span>
+        </div>
+
+    </div>
+</script>
+<script type="text/ng-template" id="itemTemplate.html">
+    <div ng-click="selectTreeNode(item)">
+        <div class="pull-right"><i ng-class="{'ion-chevron-right':item.type=='分类', 'ion-document':item.type=='课程'}"></i></div>{{item.title}}
+    </div>
+</script>
+<ion-view view-title="课程">
+    <ion-header-bar class="bar-positive">
+        <a class="button icon ion-chevron-left" style="font-size:16px; color:gray; background-color:transparent;" href="#/tab/allCourseList"></a>
+        <!--<i class="button icon ion-chevron-left font_min" ng-click="toMessageList()"></i>-->
+        <h1 class="title">{{courseInfo.baseInfo.title}}</h1>
+        
+    </ion-header-bar>
+    <ion-content>
+        <div class="stable-bg">
+            <div id="courseHeader" class="positive-bg center">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+            <div class="center" style="margin-top:-75px;">
+                <img style="border-radius:5px; border:5px solid #fff;  width:150px;" ng-src="{{courseInfo.baseInfo.img}}" />
+                <!--<span style="display:block;" class="energized">{{courseInfo.baseInfo.status}}</span>-->
+                <div>
+                    <button style="background-color:lightgray" class="btn_radius_ellipse btnGreen">收藏课程</button>
+                </div>
+                <div id="courseInfoDiv">
+                    <span style="font-size:14px;">评分:</span>
+                    <ljx-star-tool platform="app" enable-edit="false" star-number="courseInfo.baseInfo.starRating" max-value="5" style="transform:scale(2); font-size: 16px;"></ljx-star-tool>
+
+                    <div style="display:inline; margin-left:30px;">
+                        <span style="font-size:14px;">学习数:</span>
+                        <span class="positive">{{courseInfo.baseInfo.learnCount}}</span>
+                    </div>
+                    <div style="display:inline; margin-left:30px;">
+                        <span style="font-size:14px;">收藏数:</span>
+                        <span class="assertive">{{courseInfo.baseInfo.keepCount}}</span>
+                    </div>
+                </div>
+                <br />
+            </div>
+            
+        </div>
+        
+        <div class="button-bar ">
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='学习记录'">学习记录</a>
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='我要评分'">我要评论</a>
+            <a class="button button-light" style="font-size:14px;" ng-click="divContent='用户评分'">用户评论</a>
+        </div>
+        <div ng-if="divContent=='学习记录'">
+            <div class="container mt15 font_min">
+                <ljx-list-box platform="app" count="{{courseInfo.learnInfos.length}}" items="courseInfo.learnInfos" page-step="5" display-mode="分页显示" item-template="myLearnContenteTemplate"></ljx-list-box>
+                <br />
+            </div>
+        </div>
+        <div ng-if="divContent=='我要评分'">
+            <div class="container mt15 font_min">
+                <div id="courseCommentDiv">
+                    <ljx-star-tool platform="app" enable-edit="true" star-number="score" max-value="5" style="margin-left:20px;"></ljx-star-tool>
+                    <span style="margin-left:5px; font-size:14px;">{{score}}分</span>
+                </div>
+                <div class="item item-input">
+                    <textarea class="stable-bg padding" id="txtDiscuss" ng-model="discuss" style="width:95%; height:100px; resize: none; border-radius:5px;"></textarea>
+                </div>
+                <div class="padding">
+                    <button class="button button-balanced button-small pull-right" ng-click="submitDiscuss()">提交评论</button>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="divContent=='用户评分'" class="font_min">
+            <ljx-list-box platform="app" count="{{courseInfo.discusses.length}}" items="courseInfo.discusses" page-step="5" display-mode="分页显示" item-template="pageContentTemplate"></ljx-list-box>
+            <br />
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <div class="button-bar">
+            <button class="button button-balanced button-small " ng-click="showLearn()" ng-disabled="!courseInfo"><i class="iconfont icon-shanxiyidongduankaoqinjiankongzhishikushouye03-copy padding"></i>学&nbsp;&nbsp;&nbsp;&nbsp;习</button>
+            <button class="button button-energized button-small " ng-click="showExam()" ng-disabled="!courseInfo"><i class="iconfont icon-newxuexibaogao padding"></i>测&nbsp;&nbsp;&nbsp;&nbsp;试</button>
+            <button class="button button-assertive button-small " ng-click="doKeep()" ng-disabled="!courseInfo"><i class="iconfont icon-shoucang padding"></i>收&nbsp;&nbsp;&nbsp;&nbsp;藏</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+

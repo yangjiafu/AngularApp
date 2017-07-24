@@ -1,0 +1,5 @@
+<ul class="pull-right">
+    <li ng-repeat="button in _buttons" ng-click="_pageButtonClick(button)">
+        <button ng-class="{true : 'button button-positive', false : 'button button-light'}[button.isActive]">{{button.value}}</button>
+    </li>
+</ul>

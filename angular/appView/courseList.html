@@ -1,0 +1,23 @@
+﻿<ion-view view-title="课程">
+    <ion-header-bar class="bar-positive">
+        <h1 class="title">我的课程</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <div ng-repeat="item in m.list" class="item item-thumbnail-left" >
+                <!--<i class="icon ion-chevron-right" style="font-size:12px; color:darkgray;"></i>-->
+                <img ng-click="toCourse(item.course_id)" style="border-radius:100%;"
+                     ng-src="{{m.config.filesUrl}}/courses/{{item.courseName}}.jpg"/>
+                <h2 class="dark padding-top" >
+                     <span ng-click="toCourse(item.course_id)">{{item.courseName}}</span>
+                    <span style="color:orange;float:right;"
+                          ng-click="removeKeepCourse(item.course_id)">
+                        <i class="ion-heart-broken padding"></i>
+                    </span>
+                </h2>
+                <span ng-click="toCourse(item.course_id)" class="myFontColor"
+                      style="font-size:12px; white-space:normal;">{{item.summarySmall|textLength:40}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

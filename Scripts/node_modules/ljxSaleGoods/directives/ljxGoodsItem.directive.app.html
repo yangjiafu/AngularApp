@@ -1,0 +1,46 @@
+<div ng-if="displayType=='BoxItem'" class="col-33" ng-click="_onClicked(item)">
+    <div class="speical speical-default">
+        <div ng-class="{'img-lg':bootstrapSize=='lg','img-md':bootstrapSize=='md', 'img-sm':bootstrapSize=='sm', 'img-xs':bootstrapSize=='xs'}" style="background-image: url('{{img}}')">
+            <a href="javascript:void(0);" ng-click="_onClicked(item)"></a>
+        </div>
+        <div class="shape">
+            <div class="shape-text">
+                {{status}}
+            </div>
+        </div>
+        <div class="text-special-default">
+            <a href="javascript:void(0);">{{title}}</a>
+        </div>
+        <div class="speical-content">
+            <div class="pull-left">
+                <ljx-star-tool star-Number="starRating"></ljx-star-tool>
+            </div>
+            <div class="pull-right">
+                <span class="glyphicon glyphicon-heart" style="color:red"></span>{{commentNumber}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div ng-if="displayType=='RowItem'" ng-click="_onClicked(item)" class="col nonPadding">
+    <div class="row nonPadding" style="width:100%">
+        <div class="col col-40">
+            <div ng-class="{'shape-lg':bootstrapSize=='lg','shape-md':bootstrapSize=='md', 'shape-sm':bootstrapSize=='sm', 'shape-xs':bootstrapSize=='xs'}">
+                <img style="width:80px;" ng-src="{{img}}" alt="MI">
+            </div>
+        </div>
+        <div class="col col-60">
+            <p><strong>{{title}}</strong></p>
+            <p><span class="statusInfo">{{status}}</span></p>
+            <p style="vertical-align:bottom; margin-top:10px;">
+                <div style="float:left">
+                    <ljx-star-tool platform="app" star-Number="starRating"></ljx-star-tool>
+                </div>
+                <div style="float:right">
+                    <span class="ion-android-favorite" style="color:red"></span>{{commentNumber}}
+                </div>
+            </p>
+        </div>
+    </div>
+    
+</div>

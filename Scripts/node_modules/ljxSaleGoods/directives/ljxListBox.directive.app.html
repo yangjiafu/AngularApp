@@ -1,0 +1,5 @@
+<ul class="list" style="list-style:none; width:100%;">
+    <li class="itemnonPadding" style="width:100%;" ng-repeat="item in _items" ng-include="itemTemplate"></li>
+</ul>
+<ljx-page-control platform="app" ng-if="displayMode=='不显示'" page-count="_pageCount" buttons-count="7" current-page="_currentPage" is-show-scroll-button="false"></ljx-page-control>
+<div class="clearfix"></div>

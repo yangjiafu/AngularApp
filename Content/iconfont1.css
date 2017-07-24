@@ -1,0 +1,31 @@
+@font-face {font-family: "iconfont";
+    src: url('//at.alicdn.com/t/font_luc7u3kbrz9cc8fr.eot?t=1500533409684'); /* IE9*/
+    src: url('//at.alicdn.com/t/font_luc7u3kbrz9cc8fr.eot?t=1500533409684#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/font_luc7u3kbrz9cc8fr.woff?t=1500533409684') format('woff'), /* chrome, firefox */
+    url('//at.alicdn.com/t/font_luc7u3kbrz9cc8fr.ttf?t=1500533409684') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/font_luc7u3kbrz9cc8fr.svg?t=1500533409684#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-BAI-wuzi:before { content: "\e69c"; }
+
+.icon-BAI-wenzhang:before { content: "\e6be"; }
+
+.icon-BAI-wode:before { content: "\e6cd"; }
+
+.icon-BAI-gongneng:before { content: "\e6d2"; }
+
+.icon-BAI-gongneng-copy:before { content: "\e6d3"; }
+
+.icon-BAI-wode-copy:before { content: "\e6d4"; }
+
+.icon-BAI-wenzhang-copy:before { content: "\e6d5"; }
+
+.icon-BAI-wuzi-copy:before { content: "\e6d6"; }

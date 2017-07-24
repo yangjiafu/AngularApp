@@ -1,0 +1,87 @@
+﻿<ion-view view-title="课程" ng-init="modal.isShowLearnInfo=false;">
+    <div class="bar bar-header">
+        <div class="h1 title">
+            {{modal.courseName}}
+        </div>
+    </div>
+    <ion-content>
+        <br />
+        <br />
+        <div class="row" >
+            <div class="col">
+            </div>
+            <div class="col">
+                <div class="text-center" style="font-size:18px; padding:12px;"><i class="glyphicon glyphicon-time"></i> {{modal.useTime}}</div>
+            </div>
+            <div class="col">
+                <div class="pull-right btn_right">
+                    <button class="button button-light" ng-click="modal.isShowLearnInfo=true; showLearnCompleteInfo();"><i class="ion-log-out btnIconWX"></i>退出学习</button>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!modal.isShowLearnInfo">
+            <div style="float:left; padding:0px 25px;">
+                <h5>第{{modal.currentQuestionNumber}}题</h5>
+            </div>
+            <div style="float:right; padding:0px 25px;">
+                <h5>共{{modal.questionCount}}题</h5>
+            </div>
+            <div style="clear:both"></div>
+
+            <div class="card font_min" style="margin:0px 10px">
+                <div class="item-divider">
+                    <h5><strong>{{currentQuestion.title}}</strong>（正确选择数{{currentQuestion.rightAnswerCount}}个）</h5>
+                </div>
+                <div class="item-text-wrap">
+                    <div id="DivExamContent">
+                        <div class="list">
+                            <div class="item" style="padding:10px;" ng-repeat="item in currentQuestion.answers" ng-click="selectAnswer(item);">
+                                <input type="checkbox" ng-model="item.isUserSelect" ng-disabled="!item.enableAnswer" />
+                                <span>{{item.title}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center ">
+                        <button class="button button-balanced button-small padding-left padding-right" ng-click="submitQuestion()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+                        <!--<button class="btn btn-default" ng-click="nextQuestion()">下一题</button>-->
+                    </div>
+                    <br />
+
+                    <!--<div>
+                <ul>
+                    <li class="list-group-item-text" ng-repeat="item in currentQuestion.rightAnswers">
+                        {{item.title}}
+                    </li>
+                </ul>
+            </div>-->
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="card" style="margin:5px 10px;" ng-if="modal.isShowLearnInfo">
+            <div class="item-divider">
+                <h4 class="modal-title" id="myModalLabel">本次学习信息</h4>
+            </div>
+            <div class="item-text-wrap font_min">
+                <div class="list">
+                    <!--<div class="item" style="padding:10px;"><span class="pull-left">课程名称：</span><span class="text-primary pull-right">{{learnRecordInfo.courseName}}</span></div>-->
+                    <!--<li class="item"><span class="pull-left">学习模式：</span><span class="text-primary pull-right">{{learnRecordInfo.learnMode}}</span></li>
+                    <div class="item"><span class="pull-left">难度：</span><span class="text-primary pull-right">{{learnRecordInfo.difficulty}}</span></li>-->
+                    <div class="item" style="padding:10px;"><span class="pull-left">开始时间：</span><span class="text-primary pull-right">{{learnRecordInfo.startTime|customDate:'time'}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">结束时间：</span><span class="text-primary pull-right">{{learnRecordInfo.endTime|customDate:'time'}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">用时：</span><span class="text-primary pull-right">{{learnRecordInfo.useTime}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.questionNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">完成主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.answerNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">正确主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.answerRightNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">得分：</span><span class="text-primary pull-right">{{learnRecordInfo.score}}</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="learnCompleted()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button></div>
+                <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="modal.isShowLearnInfo=false;">取&nbsp;&nbsp;&nbsp;&nbsp;消</button></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

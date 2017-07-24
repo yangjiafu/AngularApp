@@ -1,0 +1,70 @@
+﻿<ion-view view-title="课程" ng-init="modal.isShowLearnInfo=false;">
+    <ion-header-bar class="bar-positive">
+        <h1 class="title">{{m.params.courseName}}</h1>
+    </ion-header-bar>
+    <ion-content style="background-color:white;">
+        <ion-list>
+            <ion-item class="center">
+                <h2 class="assertive" style="font-size:20px;">
+                    <span class="pull-left myFontColor" style="font-size:14px; padding-top:5px;" ng-click="showExamCompleteInfo()">共{{m.exam.questions.length}}题</span>
+                    {{m.examInfo.useTime}}
+                    <span class="pull-right myFontColor" style="font-size:14px;" ng-click="showExamCompleteInfo()">
+                        <i class="iconfont icon-powerswitch myIocnColor" style="font-size:20px;"></i>结束</span>
+                </h2>
+            </ion-item>
+        </ion-list>
+
+        <div ng-show="!m.isShowExamInfo" class="swiper-container">
+            <div class="swiper-wrapper">
+            </div>
+        </div>
+
+        
+        
+        <!--<ion-list ng-if="!m.isShowExamInfo">
+            <ion-item class="item-divider">
+                {{m.exam.curQuestion.title}}
+            </ion-item>
+            <div style="background-color:white;" ng-repeat="n in m.exam.curQuestion.items" class="padding stable-border ">
+                <div ng-click="selectAnswer(n)" ng-class="{'positive':n.isUserChoice==true, 'dark':n.isUserChoice==false}">
+                    {{n.title}}
+                </div>
+            </div>
+        </ion-list>-->
+
+        <ion-list ng-if="m.isShowExamInfo">
+            <ion-item class="item-divider">
+                本次学习信息
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">主题数：</span><span class="text-primary pull-right">{{m.examInfo.questionNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">完成主题数：</span><span class="text-primary pull-right">{{m.examInfo.answerNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">正确主题数：</span><span class="text-primary pull-right">{{m.examInfo.answerRightNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">得分：</span><span class="text-primary pull-right">{{m.examInfo.score}}</span>
+            </ion-item>
+            <ion-item>
+                <button class="button button-balanced button-small padding-left pull-right" style="margin:0px 10px;" ng-click="m.isShowExamInfo=false;">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                <button class="button button-balanced button-small padding-left pull-right padding-right" style="margin:0px 10px;" ng-click="examCompleted()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+    <ion-footer-bar>
+        <div class="button-bar">
+            <button class="button button-dark button-small " ng-click="prior()" ng-disabled="m.exam.index<=0"><i class="ion-arrow-left-b padding"></i>上一个</button>
+            <button class="button button-dark button-small " ng-click="next()" ng-disabled="m.isDoAllQuestion || m.exam.curQuestion.answerStatus == 0"><i class="ion-arrow-right-b padding"></i>下一个</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+<!--<script type="text/javascript">
+  var mySwiper = new Swiper('.swiper-container',{
+    loop: true,
+	autoplay: 3000,
+  });
+</script>-->

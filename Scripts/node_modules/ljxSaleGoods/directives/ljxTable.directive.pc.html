@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center" ng-show="_getIsShowTitle()"><strong>{{_pageData.tableName}}</strong></div>
+    <div id="divTable" ng-hide="_isShowDetail">
+        <table class="table table-striped table-bordered">
+            <tr class="info">
+                <td ng-repeat="field in _pageData.fields | colFilter" class="{{field.css}}">
+                    <strong>{{field.align}}</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="item in _pageData.items" ng-click="_onRowClicked(item)">
+                <td ng-repeat="field in _pageData.fields | colFilter" class="{{field.css}}">
+                    <div ng-click="_onCellClicked(item, field, item[field.name])">
+                        {{item[field.name]}}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div ljx-page-control buttons-count="5" ng-show="_isShowPage"></div>
+    </div>
+    <div id="divRow" ng-show="_isShowDetail">
+        <p class="text-primary"><a href="#" ng-click="_showTable()">返回</a></p>
+        <table class="table table-striped table-bordered">
+            <tr class="info">
+                <td class="col-xs-4">
+                    <strong>名称</strong>
+                </td>
+                <td class="col-xs-8">
+                    <strong>值</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="rowItem in _rowInfo | rowDetialFilter">
+                <td class="col-xs-4">
+                    <p>{{rowItem.align}}</p>
+                </td>
+                <td class="col-xs-8">
+                    <p>{{rowItem.value}}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

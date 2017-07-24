@@ -1,0 +1,53 @@
+﻿<div ng-controller="MyInfoCtrl">
+    <div style="padding:10px;" ng-controller="MyInfo.BaseInfoCtrl">
+        <div class="row">
+            <div class="col-xs-3">
+                <img ng-src="../imgs/personIcon.jpg" class="img-circle" style="width:100px;">
+            </div>
+            <div class="col-xs-8">
+                <div style="padding:30px;">
+                    <p><strong>{{account}}</strong></p>
+                    <p><strong>{{personName}}</strong></p>
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <!--<span class="glyphicon glyphicon-chevron-right" style="height:100%;"></span>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>修改密码</h5>
+        </div>
+        <div class="panel-body">
+            <div ng-controller="MyInfo.UpdatePasswordCtrl">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label">新密码</label>
+                        <input type="password" ng-model="password" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">重复密码</label>
+                        <input type="password" ng-model="repeatPassword" class="form-control" />
+                    </div>
+                    <button type="button" class="form-control" ng-click="savePassword">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>账号管理</h5>
+        </div>
+        <div class="panel-body">
+            <div ng-controller="MyInfo.AccountManagerCtrl">
+                <div class="form-horizontal">
+                    <button type="button" class="form-control" ng-click="exitLogin()">退出账号</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

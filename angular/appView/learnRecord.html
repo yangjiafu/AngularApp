@@ -1,0 +1,27 @@
+﻿<ion-header-bar class="bar-positive">
+    <button class="button icon ion-chevron-left" style="font-size:16px; color:white; background-color:transparent; border:none;" ng-click="goBack()"></button>
+    <h1 class="title">我的学习记录（{{m.learnInfoCount}}）</h1>
+</ion-header-bar>
+<ion-content>
+    
+    <ion-item class="item item-thumbnail-left" ng-repeat="item in m.learnInfoList">
+        <img class="learnRecordImage" ng-src="{{item.img}}" />
+        <h3 class="learnRecordTitle">
+            {{item.courseName}}
+            <span ng-class="{'tagLearnSpan':item.learnMode=='学习', 'tagExamSpan':item.learnMode=='测试'}">
+                {{item.learnMode}}
+            </span>
+        </h3>
+
+        <p class="font_min">
+            <span class="myFontColor">总数:</span><span style="color:rgba(0,0,0,0.8); margin-right:5px;">{{item.questionNumber}}</span>
+            <span class="myFontColor">完成数:</span><span style="color:rgba(0,0,0,0.8); margin-right:5px;">{{item.answerNumber}}</span>
+            <span class="myFontColor">正确数:</span><span style="color:rgba(0,0,0,0.8); margin-right:5px;">{{item.answerRightNumber}}</span>
+            <span class="myFontColor">得分:</span><span style="color:rgba(0,0,0,0.8); margin-right:5px;">{{item.score}}</span>
+        </p>
+        <p class="font_min">
+            <span style="color:#666; margin-right:5px;">{{item.startTime|customDate:'date'}}  ({{item.startTime|customDate:'time'}}--{{item.endTime|customDate:'time'}})</span>
+        </p>
+    </ion-item>
+    <ion-infinite-scroll ng-if="enableRefreshLearnInfo()" on-infinite="m.refreshLearnInfo()" distance="1%"></ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,48 @@
+﻿<ion-view view-title="用户注册">
+    <ion-header-bar class="bar-positive">
+        <i class="button icon ion-chevron-left font_min" style="border-style:none;" ng-click="toLogin()"></i>
+        <h1 class="title">用户注册</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <div class="item item-input">
+                <input type="text" ng-model="userInfo.account" placeholder="帐号">
+            </div>
+            <div class="item item-input">
+                <input type="text" ng-model="userInfo.userName" placeholder="姓名">
+            </div>
+            <div class="item item-input">
+                <input type="text" ng-model="userInfo.idCard" placeholder="身份证号">
+            </div>
+            <div class="item item-input">
+                <input type="text" ng-model="userInfo.userPhone" placeholder="手机号码">
+            </div>
+            <div class="item item-input">
+                <input type="password" ng-model="userInfo.verificationCode" placeholder="验证码">
+                <button class="button button-small pull-right btn_radius_ellipse" style="margin-right:5px;" ng-click="sendVerificationCode()" ng-if="times<=0">获取验证码</button>
+                <span class="pull-right" style="color:red; margin-right:15px;" ng-if="times>0">{{times}}</span>
+            </div>
+            <div class="item item-input">
+                <input type="password" ng-model="userInfo.password" placeholder="密码">
+            </div>
+            <div class="item item-input">
+                <input type="password" ng-model="userInfo.repeatPassword" placeholder="确认密码">
+            </div>
+            
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="regist()">
+                注册
+            </button>
+        </div>
+        <div class="padding" style="font-size:12px;">
+            <i class="ion-checkmark-circled balanced"></i>
+            点击注册表示您已经同意了
+            <a href="#"><<要学习服务条款>></a>
+        </div>
+    </ion-content>
+    <!--<ion-footer-bar>
+        <h5 class="darkgray" style="margin:auto;">九君信息</h5>
+    </ion-footer-bar>-->
+</ion-view>
+

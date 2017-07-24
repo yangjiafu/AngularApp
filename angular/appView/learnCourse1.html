@@ -1,0 +1,127 @@
+﻿<script type="text/html" id="imageTemplate">
+    <ion-scroll zooming="false">
+        <img src="#file#" class="img-responsive" style="width:100%" onerror="this.style.display='none'">
+    </ion-scroll>
+</script>
+<script type="text/html" id="videoTemplate">
+    <video class="embed-responsive-item" style="background-color:dimgrey; width:100%;" controls="controls">
+        <source src="#file#" type="video/mp4" />
+    </video>
+</script>
+<!--<script type="text/html" id="textTemplate">
+    <div class="item-text-wrap padding">
+        <p >
+            &nbsp;&nbsp;&nbsp;&nbsp;#textItem#  带循环
+        </p>
+    </div>
+</script>-->
+
+<script type="text/template" id="catalogTitleTemplate">
+    <div class="padding">
+        <span>#title#</span>
+    </div>
+</script>
+
+<!--<script type="text/template" id="questionTitleTemplate">
+    <strong>
+        <span style="float:right;"  class="assertive">(#rightAnswerCount#)</span>
+        <span style="display:block; margin-top:8px;">#text#  带循环</span>
+    </strong>
+</script>-->
+
+<ion-view view-title="">
+    <ion-header-bar class="bar-positive">
+        <h1 class="title">{{m.params.courseName}}</h1>
+    </ion-header-bar>
+    <ion-content style="background-color:white;">
+        <ion-list>
+            <ion-item class="center">
+                <h2 class="assertive" style="font-size:20px;">
+                    {{m.learnInfo.useTime}}
+                    <span class="pull-right myFontColor" style="font-size:14px;" ng-click="showLearnCompleteInfo()"><i class="iconfont icon-powerswitch myIocnColor" style="font-size:20px;"></i>结束</span>
+                </h2>
+            </ion-item>
+        </ion-list>
+
+        <div ng-show="!m.isShowLearnInfo" class="swiper-container" style="line-height:30px;">
+            <div class="swiper-wrapper">
+                <!--<div class="swiper-slide" ng-repeat="item in m.learn.questions">
+                    <div style="background-color:white;" class="myFontColor">
+                        <div class="padding" ng-if="item.title.indexOf('图片')<0 && item.title.indexOf('视频')<0">
+                            <strong>
+                                <span style="float:right; " ng-if="item.rightAnswerCount" class="assertive">({{item.rightAnswerCount}})</span>
+                                <span style="display:block; margin-top:8px;" ng-repeat="tt in item.title|titleList">{{tt}}</span>
+                            </strong>
+                        </div>
+                        <div class="leftIndentation padding" ng-repeat="n in item.items" ng-if="item.type!='question' && n.type!='question' && n.title.indexOf('图片') < 0 && n.title.indexOf('视频') < 0">
+                            <span>{{n.title}}</span>
+                        </div>
+                        <div class="leftIndentation padding stable-border" ng-repeat="n in item.items" ng-if="item.type=='question'">
+                            <div ng-click="selectAnswer(n)">
+                                <input type="checkbox" ng-checked="n.isUserChoice" />
+                                <span class="assertive" style="text-decoration:line-through" ng-if="item.answerStatus != 0 && n.type == 'errorAnswer' && n.isUserChoice">{{n.title}}</span>
+                                <span class="positive" ng-if="item.answerStatus != 0 && n.type == 'rightAnswer' && n.isUserChoice">{{n.title}}</span>
+                                <span ng-if="item.answerStatus == 0 || !n.isUserChoice">{{n.title}}</span>
+                            </div>
+                        </div>
+
+                        <div style="padding-top:20px; margin-top:10px; border-top:1px solid #808080;" ng-if="item.fileType != ''">
+                            <div id="video1" ng-if="item.fileType == 'video'">
+                                <video class="embed-responsive-item" style="background-color:dimgrey; width:100%;" controls="controls">
+                                    <source ng-src="{{item.video.video}}" type="video/mp4" />
+                                </video>
+                                <div ng-if="m.video.alyVideo != ''" class="prism-player" id="J_prismPlayer{{$index}}" ng-init="createVideo(item.file, $index)"></div>
+                            </div>
+                            <div ng-if="item.fileType == 'img'">
+                                <ion-scroll zooming="false">
+                                    <img ng-src="{{item.file}}" class="img-responsive" style="width:100%" onerror="this.style.display='none'">
+                                </ion-scroll>
+                            </div>
+                            <div ng-if="item.fileType == 'text'">
+                                <div class="item-text-wrap padding">
+                                    <p ng-repeat="textItem in item.TextContent">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;{{textItem}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <ion-list ng-if="m.isShowLearnInfo">
+            <ion-item class="item-divider">
+                本次学习信息
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">主题数：</span><span class="text-primary pull-right">{{m.learnInfo.questionNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">完成主题数：</span><span class="text-primary pull-right">{{m.learnInfo.answerNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">正确主题数：</span><span class="text-primary pull-right">{{m.learnInfo.answerRightNumber}}</span>
+            </ion-item>
+            <ion-item>
+                <span class="pull-left">得分：</span><span class="text-primary pull-right">{{m.learnInfo.score}}</span>
+            </ion-item>
+            <ion-item>
+                <button class="button button-balanced button-small padding-left pull-right" style="margin:0px 10px;" ng-click="m.isShowLearnInfo=false;">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                <button class="button button-balanced button-small padding-left pull-right padding-right" style="margin:0px 10px;" ng-click="learnCompleted()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar>
+        <div class="button-bar">
+            <button class="button button-dark button-small " ng-click="prior()" ng-disabled="m.learn.index<=0"><i class="ion-arrow-left-b padding"></i>上一个</button>
+            <button class="button button-balanced button-small " ng-click="submitQuestion()" ng-disabled="m.learn.curQuestion.type!='question'"><i class="ion-arrow-up-b padding"></i>提交</button>
+            <button class="button button-dark button-small " ng-click="next()" ng-disabled="m.learn.index>=m.learn.questions.length -1 || (m.learn.curQuestion.type=='question' && m.learn.curQuestion.answerStatus != 1)"><i class="ion-arrow-right-b padding"></i>下一个</button>
+        </div>
+    </ion-footer-bar>
+
+    <!--<div id="videoContainHidden" style="display:none;">
+        <div class="prism-player" id="J_prismPlayer" ng-init="dealVideo(m.slider1.file, 1)"></div>
+    </div>-->
+</ion-view>
+

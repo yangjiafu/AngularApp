@@ -1,0 +1,152 @@
+﻿<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <a ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="glyphicon" style="transform:scale(0.5)" ng-class="{
+          'ion-chevron-right': collapsed,
+          'ion-chevron-down': !collapsed
+        }"></span>
+        </a>
+        <a data-nodrag ng-click="selectTreeNode(node)" ng-if="!node.IsAnswer" ng-class="{'energized':node.selected, 'positive': !node.selected}">
+            <!--显示问题树-->
+            {{node.title}}
+        </a>
+        <a ng-if="node.IsAnswer && !node.isUserSelect && node.isRight" ng-class="positive">
+            <!--显示未回答的问题-->
+            ---------------------------
+        </a>
+        <a ng-if="node.IsAnswer && node.isUserSelect && node.isKeep" ng-class="{'assertive': node.isUserSelect!=node.isRight, 'positive': node.isUserSelect==node.isRight}">
+            <!--显示已经回答的问题-->
+            <!--<SPAN ng-if="node.isUserSelect!=node.isRight" style="TEXT-DECORATION: line-through">{{node.title}}</SPAN>-->
+            <SPAN ng-if="node.isUserSelect==node.isRight">{{node.title}}</SPAN>
+        </a>
+    </div>
+    <div ui-tree-nodes="" ng-modal="node.nodes" ng-class="{hidden: collapsed}">
+        <div ng-repeat="node in node.nodes | filter:treeNodeFilter" ui-tree-node ng-include="'nodes_renderer.html'">
+        </div>
+    </div>
+</script>
+
+<ion-view view-title="课程" ng-init="modal.menu=false; modal.isShowLearnInfo=false; btnName='知识点';">
+    <div class="bar bar-header">
+        <div class="h1 title">
+            {{modal.courseName}}
+        </div>
+    </div>
+    <ion-content>
+        <br />
+        <br />
+        <!--{{modal.isShowLearnInfo}}-->
+        <div class="row">
+            <div class="col">
+                <!--<div class="pull-left text-left">
+                    <button class="button button-light" ng-click="modal.menu=true; $log.debug('目录click, menu is :' + modal.menu);"><i class="ion-navicon-round"></i> 目录</button>
+                </div>-->
+            </div>
+            <div class="col">
+                <div class="text-center" style="font-size:18px; padding:12px;"><i class="glyphicon glyphicon-time"></i> {{modal.useTime}}</div>
+            </div>
+            <div class="col">
+                <div class="pull-right btn_right">
+                    <button class="button button-light" ng-click="modal.isShowLearnInfo=true; showLearnCompleteInfo();"><i class="ion-log-out btnIconWX"></i>退出学习</button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!modal.isShowLearnInfo">
+            <!--<div class="leftpart" ng-if="modal.menu" style="height:450px;">
+                <div class="headb"></div>
+                <div class="btn_close" ng-click="modal.menu=false; $log.debug('收起目录click, menu is :' + modal.menu);"><i class="ion-navicon-round"></i> 收起目录</div>
+                
+                <ion-list>
+                    <ion-item collection-repeat="node in modal.itemList" item-height="50" item-width="100%">
+                        <span ng-if="node.level==1"></span>
+                        <span ng-if="node.level==2">&nbsp;&nbsp;</span>
+                        <span ng-if="node.level==3">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span ng-if="node.level==4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <a data-nodrag ng-click="selectTreeNode(node)" ng-if="!node.IsAnswer" ng-class="{'energized':node.selected, 'positive': !node.selected}">
+                            {{node.title}}
+                        </a>
+                        <a ng-if="node.IsAnswer && !node.isUserSelect && node.isRight" ng-class="positive">
+                            ---------------------------
+                        </a>
+                        <a ng-if="node.IsAnswer && node.isUserSelect && node.isKeep" ng-class="{'assertive': node.isUserSelect!=node.isRight, 'positive': node.isUserSelect==node.isRight}">
+                            <SPAN ng-if="node.isUserSelect==node.isRight">{{node.title}}</SPAN>
+                        </a>
+                    </ion-item>
+                </ion-list>
+                <div class="footb"></div>
+            </div>-->
+            <div class="card" style="margin:0px 10px;">
+                <div style="text-align:right" class="padding">
+                    <button class="button button-balanced button-small padding-right padding-left" ng-disabled="!questionItem.hasVideo" ng-click="btnName='视频'">视&nbsp;&nbsp;&nbsp;&nbsp;频</button>
+                    <button class="button button-balanced button-small padding-right padding-left" ng-disabled="!questionItem.hasImg" ng-click="btnName='图片'">图&nbsp;&nbsp;&nbsp;&nbsp;片</button>
+                    <button class="button button-balanced button-small padding-right padding-left" ng-disabled="!questionItem.hasText" ng-click="btnName='文本'">文&nbsp;&nbsp;&nbsp;&nbsp;本</button>
+                    <button class="button button-balanced button-small padding-right padding-left" ng-click="btnName='知识点'">知识点</button>
+                </div>
+                <div id="divVideo" style="width:100%;margin:5px 10px;" class="card" ng-if="questionItem.hasVideo && btnName=='视频'">
+                    <div class="item-divider"><strong>{{questionItem.node.title}}</strong></div>
+                    <div class="item-text-wrap nonPadding">
+                            <video class="embed-responsive-item" style="background-color:dimgrey; width:100%;" controls ng-src="{{questionItem.node.Video}}"></video>
+                    </div>
+                </div>
+                <div id="divImage" class="card" style="margin:5px 10px;" ng-if="questionItem.hasImg && btnName=='图片'">
+                    <div class="item-divider"><strong>{{questionItem.node.title}}</strong></div>
+                    <div class="item-text-wrap">
+                        <img ng-src="{{questionItem.node.Image}}" class="img-responsive" style="width:100%" onerror="this.style.display='none'">
+                    </div>
+                </div>
+                <div id="divText" class="card font_min" style="margin:5px 10px;" ng-if="questionItem.hasText && btnName=='文本'">
+                    <div class="item-divider"><strong>{{questionItem.node.title}}</strong></div>
+                    <div class="item-text-wrap">
+                        {{questionItem.node.TextContent}}
+                    </div>
+                </div>
+                <div id="divZSD" class="card font_min" style="margin:5px 10px;" ng-if="btnName=='知识点'">
+                    <div class="item-divider"><strong>{{questionItem.node.title}}</strong><span style="float:right; font-size:12px; padding-right:5px;">正确{{currentQuestion.rightAnswerCount}}项</span></div>
+                    <div id="divZSDBody" class="item-text-wrap padding">
+                        
+                        <div class="clearfix"></div>
+                        <ion-list class="list padding">
+                            <ion-item class="item" style="padding:10px 10px;" ng-repeat="item in currentQuestion.answers" ng-click="selectAnswer(item);">
+                                <span ng-if="!item.isUserSelect || !currentQuestion.isUserAnswer" ng-class="{'positive':item.isUserSelect, 'dark':!item.isUserSelect}">{{item.title}}</span>
+                                <span ng-if="item.isUserSelect  && currentQuestion.isUserAnswer && item.isUserSelect!=item.isRight" class="assertive" style="text-decoration: line-through">{{item.title}}</span>
+                                <span ng-if="item.isUserSelect  && currentQuestion.isUserAnswer && item.isUserSelect==item.isRight" class="balanced">{{item.title}}</span>
+                            </ion-item>
+                            <div><span class="promptInfo" ng-if="currentQuestion.isUserAnswerRight && currentQuestion.isUserAnswer"><i class="ion-checkmark balanced" ></i>回答正确</span></div>
+                            <div><span class="promptInfo" ng-if="!currentQuestion.isUserAnswerRight && currentQuestion.isUserAnswer"><i class="ion-close assertive" ></i>回答有误</span></div>
+                        </ion-list>
+                    </div>
+                    <div id="wxLearnButtons" class="row" style="z-index:0">
+                        <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="priso()" ng-disabled="modal.currentQuestionNumber==1">上一题</button></div>
+                        <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="submitQuestion()">提&nbsp;&nbsp;&nbsp;&nbsp;交</button></div>
+                        <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="next()" ng-disabled="modal.currentQuestionNumber==questionCount">下一题</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="card" style="margin:5px 10px;" ng-if="modal.isShowLearnInfo">
+            <div class="item-divider">
+                <h4 class="modal-title" id="myModalLabel">本次学习信息</h4>
+            </div>
+            <div class="item-text-wrap font_min">
+                <div class="list">
+                    <!--<div class="item" style="padding:10px;"><span class="pull-left">课程名称：</span><span class="text-primary pull-right">{{learnRecordInfo.courseName}}</span></div>-->
+                    <!--<li class="item"><span class="pull-left">学习模式：</span><span class="text-primary pull-right">{{learnRecordInfo.learnMode}}</span></li>
+                    <div class="item"><span class="pull-left">难度：</span><span class="text-primary pull-right">{{learnRecordInfo.difficulty}}</span></li>-->
+                    <div class="item" style="padding:10px;"><span class="pull-left">开始时间：</span><span class="text-primary pull-right">{{learnRecordInfo.startTime|customDate:'time'}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">结束时间：</span><span class="text-primary pull-right">{{learnRecordInfo.endTime|customDate:'time'}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">用时：</span><span class="text-primary pull-right">{{learnRecordInfo.useTime}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.questionNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">完成主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.answerNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">正确主题数：</span><span class="text-primary pull-right">{{learnRecordInfo.answerRightNumber}}</span></div>
+                    <div class="item" style="padding:10px;"><span class="pull-left">得分：</span><span class="text-primary pull-right">{{learnRecordInfo.score}}</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="learnCompleted()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button></div>
+                <div class="col text-center"><button class="button button-balanced button-small padding-left padding-right" ng-click="modal.isShowLearnInfo=false; $log.debug('取消click isShowLearnInfo is ' + modal.isShowLearnInfo)">取&nbsp;&nbsp;&nbsp;&nbsp;消</button></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

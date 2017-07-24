@@ -1,0 +1,81 @@
+<div ng-if="displayType=='BoxItem'" class="col-sm-3 col-xs-6" ng-click="_onClicked(item)">
+    <div class="speical speical-default">
+        <div ng-class="{'img-lg':bootstrapSize=='lg','img-md':bootstrapSize=='md', 'img-sm':bootstrapSize=='sm', 'img-xs':bootstrapSize=='xs'}" style="background-image: url('{{img}}')">
+            <a href="javascript:void(0);" ng-click="_onClicked(item)"></a>
+        </div>
+        <div class="shape">
+            <div class="shape-text">
+                {{status}}
+            </div>
+        </div>
+        <div class="text-special-default">
+            <a href="javascript:void(0);">{{title}}</a>
+        </div>
+        <div class="speical-content">
+            <div class="pull-left">
+                <ljx-star-tool star-Number="starRating"></ljx-star-tool>
+            </div>
+            <div class="pull-right">
+                <span class="glyphicon glyphicon-heart" style="color:red"></span>{{commentNumber}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div ng-if="displayType=='RowItem'" ng-click="_onClicked(item)">
+    <div ng-show="bootstrapSize=='sm' || bootstrapSize=='xs'">
+        <div class="col-sm-4 col-xs-4">
+            <div ng-class="{'shape-lg':bootstrapSize=='lg','shape-md':bootstrapSize=='md', 'shape-sm':bootstrapSize=='sm', 'shape-xs':bootstrapSize=='xs'}">
+                <img class="img-responsive img-rounded" ng-src="{{img}}" alt="MI">
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-8">
+            <ul>
+                <li><strong>{{title}}</strong></li>
+                <li><span class="statusInfo">{{status}}</span></li>
+                <li>&nbsp;</li>
+            </ul>
+            <p style="vertical-align:bottom">
+                <div style="float:left">
+                    <ljx-star-tool star-Number="starRating"></ljx-star-tool>
+                </div>
+                <div style="float:right">
+                    <span class="glyphicon glyphicon-heart" style="color:red"></span>{{commentNumber}}
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <div ng-show="bootstrapSize=='lg' || bootstrapSize=='md'">
+        <div class="col-sm-4 col-xs-5">
+            <div class="speical speical-default">
+                <div ng-class="{'img-lg':bootstrapSize=='lg','img-md':bootstrapSize=='md', 'img-sm':bootstrapSize=='sm', 'img-xs':bootstrapSize=='xs'}" style="background-image: url('{{img}}')">
+                    <a href="javascript:void(0);" ng-click="_onClicked(item)"></a>
+                </div>
+                <div class="shape">
+                    <div class="shape-text">
+                        {{status}}
+                    </div>
+                </div>
+                <div class="text-special-default">
+                    <a href="javascript:void(0);">{{title}}</a>
+                </div>
+                <div class="speical-content">
+                    <div class="pull-left">
+                        <ljx-star-tool star-Number="starRating"></ljx-star-tool>
+                    </div>
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-heart" style="color:red"></span>{{commentNumber}}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-7">
+            <div style="padding-top:30px;">
+                <p ng-repeat="info in infos"><span>{{info}}</span></p>
+            </div>
+        </div>
+    </div>
+
+</div>

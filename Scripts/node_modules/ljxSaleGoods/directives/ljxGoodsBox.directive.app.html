@@ -1,0 +1,22 @@
+<div class="ljxGoodsBox">
+    <div class="card" style="margin:5px 10px">
+        <div class="item item-divider" ng-if="classifyName!=''">
+            {{classifyName}}
+        </div>
+        <div class="item item-text-wrap">
+            <div ng-if="displayType=='CellBox'">
+                <div class="row">
+                    <ljx-goods-item ng-repeat="item in items" ng-init="loadData(item)"></ljx-goods-item>
+                </div>
+            </div>
+            <ul ng-if="displayType=='RowBox'" class="list">
+                <li ng-repeat="item in items" class="item nonPadding" style="width:100%;">
+                    <div class="row nonPadding">
+                        <ljx-goods-item ng-init="loadData(item)"></ljx-goods-item>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

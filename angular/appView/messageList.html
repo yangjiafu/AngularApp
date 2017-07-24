@@ -1,0 +1,53 @@
+﻿<ion-view >
+    <ion-header-bar class="bar-positive">
+        <i class="button icon ion-chevron-left font_min" style="border-style:none;" ng-click="toMessageClassify()"></i>
+        <h1 class="title">消息</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list class="stable-bg" id="newsList">
+            <ion-item ng-repeat="item in modal.shareData.messageList" class="item" style="margin:10px; ">
+                <a ng-if="item.type=='图文' || item.type=='文字'" ng-href="#/tab/messageItem/{{item.msgId}}" style="text-decoration:none; border:none;">
+                    <div  class="item item-avatar-left" style="border-bottom:1px solid rgba(128,128,128,0.2)">
+                        <img ng-if="item.src" ng-src="item.src" />
+                        <img ng-if="!item.src" src="../imgs/news_thumbnail_close.jpg" />
+                        <h2>{{item.title}}</h2>
+                        <p class="font_min">
+                            {{item.subTitle}}
+                            <span class="pull-right">{{item.sendTime|date:'yyyy-MM-dd'}}</span>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                
+                <div ng-if="item.type=='图文组'">
+                    <div ng-repeat="msgItem in item.msgList">
+                        <a ng-href="javascript:void(0)" ng-click="toMessageItem(msgItem)" style="text-decoration:none;">
+                            <div ng-if="$index==0">
+                                <img ng-if="msgItem.pic" ng-src="http://{{msgItem.pic}}" style="width:100%;" />
+                                <img ng-if="!msgItem.pic" src="../imgs/news_big.jpg" style="width:100%" />
+                                <h2 class="padding-top ">
+                                    {{msgItem.title}}
+                                    <span class="pull-right font_min myFontColor" ng-if="msgItem.subTitle==''">{{item.sendTime|date:'yyyy-MM-dd'}}</span>
+                                </h2>
+                                <p class="font_min myFontColor" ng-if="msgItem.subTitle!=''">
+                                    <span class="pull-left">{{msgItem.subTitle}}</span>
+                                    <span class="pull-right">{{item.sendTime|date:'yyyy-MM-dd'}}</span>
+                                </p>
+                            </div>
+                        </a>
+                        
+                        <a ng-href="#/tab/messageItem/{{msgItem.msgId}}" class="item item-avatar-left"  ng-if="$index>0" style="border-left-style:none; border-right-style:none;">
+                            <img ng-if="msgItem.pic" ng-src="msgItem.pic" />
+                            <img ng-if="!msgItem.pic" src="../imgs/news_thumbnail_close.jpg" />
+                            <h2 class="padding-top">{{msgItem.title}}</h2>
+                            <p class="font_min">{{msgItem.subTitle}}
+                                <span class="pull-right">{{item.sendTime|date:'yyyy-MM-dd'}}</span>
+                            </p>
+                            <div class="clearfix"></div>
+                        </a>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

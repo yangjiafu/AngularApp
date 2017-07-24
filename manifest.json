@@ -1,0 +1,11 @@
+{
+  "name": "wyxx",
+  "short_name": "My Ionic App",
+  "start_url": "angular/testAppMain.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}

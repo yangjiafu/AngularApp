@@ -1,0 +1,4 @@
+<ul style="list-style:none;">
+    <li ng-repeat="item in _items" ng-include="itemTemplate"></li>
+</ul>
+<ljx-page-control ng-if="displayMode=='分页显示'" page-count="_pageCount" buttons-count="5" current-page="_currentPage"></ljx-page-control>

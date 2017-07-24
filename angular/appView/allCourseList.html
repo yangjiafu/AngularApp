@@ -1,0 +1,46 @@
+﻿<ion-view view-title="课程">
+    <ion-header-bar class="bar-positive">
+        <h2 class="title">全部课程</h2>
+    </ion-header-bar>
+    <ion-content delegate-handle="myscroll">
+        <!--<ion-slide-box does-continue="true" auto-play="true" slide-interval="3000" show-pager="true">
+            <ion-slide>
+                <div><img style="height:200px;" ng-src="{{m.advertisement[0]}}" /></div>
+            </ion-slide>
+            <ion-slide >
+                <div><img style="height:200px;" ng-src="{{m.advertisement[1]}}" /></div>
+            </ion-slide>
+            <ion-slide>
+                <div><img style="height:200px;" ng-src="{{m.advertisement[2]}}" /></div>
+            </ion-slide>
+        </ion-slide-box>-->
+
+        <div class="swiper-container swiperImg">
+            <div class="swiper-wrapper">
+            </div>
+            <!--<div class="swiper-pagination"></div>-->
+        </div>
+        <ion-list>
+            <ion-item style="border:none; "  ng-class="{'courseBg1':$index%2==1, 'courseBg2':$index%2==0}" class="nonPadding"  
+                      ng-repeat="classItem in m.sd.classifyCourse|filterEmptyClass" ng-init="createSwiper($index);">
+                <ion-list>
+                    <ion-item  style="padding-top:10px;padding-bottom:10px; background:none;border:none;" >
+                        <h2 class="title" >{{classItem.title}}</h2>
+                    </ion-item>
+                    <ion-item class="no-padding" style="border:none;padding-top:0; background:none;">
+                        <div class="swiper-container mySwiper{{$index}}"  ng-class="{'courseBg1':$index%2==1, 'courseBg2':$index%2==0}">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"  ng-repeat="item in classItem.nodes"  ng-click="toCourse(item.id)" style="padding-bottom:35px;position:relative;background:none;">
+                                            <img ng-src="{{item.img}}" style="height:70px;border-radius:5px; width:100%; max-width:150px;"/>
+                                            <h4 class="text-center" style="width:100%;position:absolute;bottom:0;color:#666;left:0;height:35px;line-height:35px;overflow:hidden;text-overflow
+    :ellipsis;white-space:nowrap;">{{item.title}}</h4>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

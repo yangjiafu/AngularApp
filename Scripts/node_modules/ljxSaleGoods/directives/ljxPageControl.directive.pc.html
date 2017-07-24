@@ -1,0 +1,5 @@
+<ul class="pagination">
+    <li ng-repeat="button in _buttons" ng-click="_pageButtonClick(button)">
+        <button class="btn" ng-class="{true : 'btn-primary', false : 'btn-default'}[button.isActive]">{{button.value}}</button>
+    </li>
+</ul>

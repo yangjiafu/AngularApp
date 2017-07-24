@@ -1,0 +1,16 @@
+﻿<ion-content>
+    <button ng-click="write()">测试写</button>
+    <button ng-click="read()">测试读</button>
+    <button ng-click="remove()">测试删除课程</button>
+    <button ng-click="getCourseList()">测试获取课程列表</button>
+    <button ng-click="downloadResource()">测试下载资源</button>
+    <button ng-click="testReadResource()">测试读取资源</button>
+    <button ng-click="testDownload()">测试下载单个图片</button>
+    <button ng-click="testDownloadFile()">测试检测下载单个图片</button>
+    <button ng-click="testShowPic()">测试showPic</button>
+    <br />
+    <img style="width:200px; height:200px;" ng-src="file:///data/user/0/com.ionicframework.wyxx236962/files/courses/2.1/20170515154441_mbbwwkoi.jpg" />
+    <img style="width:200px; height:200px;" ng-src="{{m.img}}" />
+    <br />
+    {{m.info}}
+</ion-content>

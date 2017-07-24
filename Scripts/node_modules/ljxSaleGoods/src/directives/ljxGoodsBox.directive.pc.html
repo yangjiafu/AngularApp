@@ -1,0 +1,20 @@
+<div class="ljxGoodsBox">
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-if="classifyName!=''">{{classifyName}}</div>
+        <div class="panel-body">
+            <div ng-if="displayType=='CellBox'">
+                <div class="row">
+                    <ljx-goods-item ng-repeat="item in items" ng-init="loadData(item)"></ljx-goods-item>
+                </div>
+            </div>
+            <ul ng-if="displayType=='RowBox'">
+                <li class="RowItem" ng-repeat="item in items">
+                    <div class="row">
+                        <ljx-goods-item ng-init="loadData(item)"></ljx-goods-item>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

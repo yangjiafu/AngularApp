@@ -1,0 +1,33 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.6.4/skins/default/index.css" />
+    <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.6.4/prism.js"></script>
+</head>
+<body>
+    <!--<button onclick="move();">测试移动</button>-->
+    <div class="prism-player" id="J_prismPlayer"></div>
+    <div style="margin-top:400px;" id="divContain"></div>
+    <script>
+        var player = new prismplayer({
+            id: "J_prismPlayer",
+            autoplay: false,
+            width: "100%",
+            vid: "d9ee9891075f44a9be03f93b7ff2ac33",
+            accId: "LTAIvX5Yi4jRvZRp",
+            accSecret: "NBUnKZQ7kg04J7uL7i1sXCWHDwMmI0",
+            apiKey: "712by3pqx7pgwi5vxhepzlm4oiomiicpz821myaiu5d4mdngxs2xnx9jrpp7p9hh",
+        });
+
+        function move() {
+            var t1 = document.getElementById("divContain");
+            var t2 = document.getElementById("J_prismPlayer");
+            t1.appendChild(t2);
+        }
+    </script>
+
+
+</body>
+</html>
