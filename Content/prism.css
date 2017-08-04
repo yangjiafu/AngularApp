@@ -9,6 +9,14 @@
  * 3. 对于复杂的ui组件，其内层的所有样式都可以在这个文件定制（如进度条、音量控制条）；
  * 4. 在首次迭代中，这个文件开发者会手动编辑，以后与sprite图相关的属性应由代码自动化生成。
  */
+
+.prism-big-play-btn{
+  position: absolute!important;
+  top:50%!important;
+  left:50%!important;
+  transform: translate(-50%,-50%)!important;
+}
+
 .prism-player .prism-big-play-btn {
   width: 90px;
   height: 90px;

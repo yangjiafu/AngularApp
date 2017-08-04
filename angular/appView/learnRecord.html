@@ -7,7 +7,7 @@
     <ion-item class="item item-thumbnail-left" ng-repeat="item in m.learnInfoList">
         <img class="learnRecordImage" ng-src="{{item.img}}" />
         <h3 class="learnRecordTitle">
-            {{item.courseName}}
+            <span style="display: inline-block;width: 65%;overflow: hidden;text-overflow: ellipsis">{{item.courseName}}</span>
             <span ng-class="{'tagLearnSpan':item.learnMode=='学习', 'tagExamSpan':item.learnMode=='测试'}">
                 {{item.learnMode}}
             </span>

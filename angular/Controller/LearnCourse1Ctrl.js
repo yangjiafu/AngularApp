@@ -217,6 +217,9 @@
                             //    //prismType:1
                             //});
 
+                            //清除之前video带来的影响
+                            video.alyVideo = "";
+                            item.alyPlay = ""
                             // 从服务器获取资源
                             item.alyPlay = new prismplayer({
                                 id: "J_prismPlayer" + index,
@@ -229,6 +232,10 @@
                             });
                         }
                         else {
+
+                            //清除之前video带来的影响
+                            video.alyVideo = "";
+                            item.alyPlay = ""
                             // 从服务器获取资源
                             item.alyPlay = new prismplayer({
                                 id: "J_prismPlayer" + index,
@@ -469,7 +476,7 @@
                     //    html = '<div class="prism-player" id="J_prismPlayer' + m_swiper.slides.length + '"></div>';   // 从阿里云视频点播上获取视频
                     //}
                     //html = html.replace("#file#", item.video.video);
-                    html = '<div class="prism-player" id="J_prismPlayer' + m_swiper.slides.length + '"></div>';
+                    html = '<div class="prism-player" id="J_prismPlayer' + m_swiper.slides.length + '" style="position: relative;margin: auto;overflow: hidden" ></div>';
 
                 }
                 else if (item.fileType == "text") {

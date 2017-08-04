@@ -196,14 +196,14 @@
                     scope: $scope, // Scope (可选)。一个链接到弹窗内容的scope（作用域）。
                     buttons: [{ //Array[Object] (可选)。放在弹窗footer内的按钮。
                         text: '确定',
-                        type: 'button-default',
+                        type: 'button-positive',
                         onTap: function (e) {
                             // 当点击时，e.preventDefault() 会阻止弹窗关闭。
                             $scope.submitDiscuss();
                         }
                     }, {
                         text: '取消',
-                        type: 'button-positive',
+                        type: 'button-default',
                         onTap: function (e) {
                         }
                     }]
